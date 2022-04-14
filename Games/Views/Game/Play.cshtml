@@ -1,0 +1,56 @@
+﻿@model Games.Models.game
+@{
+    var date = DateTime.Now;
+
+    string ToBeGuessed = date.ToString("ddhh");
+    Boolean f = true;
+    <p>guess the number</p>
+    int turn = 0;
+    @while(f)
+    {
+      int cow=0;
+      int bull = 0;
+      turn += 1;
+      // this form is to take input guess from the user
+    <form action ="Play" method ="post">
+    <label>guess</label>
+    <input type = "text" name="guess" placeholder ="guess"/>
+    <br />
+    <input type = "submit" value= "save "/>
+    </form>
+      
+//@if(@Model.guess!=null)
+//{
+@if(@Model.guess.Length!=4)
+        {
+            <p>enter 4 digit</p>
+            break;
+            }
+//}
+      
+        @for (int i=0;i<4;i++)
+        {
+            char c = ToBeGuessed[i];
+            @for (int j=0;j<4;j++)
+            {
+                char d = @Model.guess[i];
+                if (c==d && i==j)
+                {
+                    bull += 1;
+                }
+                @if (c==d && i!=j)
+                {
+                    cow += 1;
+                }
+            }
+            @if (bull==4)
+            {
+                f = false;
+                <p>YOu won</p>
+                break;
+            }
+        }
+        <p> cows is @cow bulls is @bull turn = @turn</p>
+    }
+}
+}
